@@ -43,13 +43,13 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - finding max/min in a window
 - Two-pointer technique
   - In-place operations (e.g., removing duplicates)
+- Prefix sums
 - Binary search and its variations:
   - Classic binary search (O(log n))
   - First/Last occurrence
   - Search in rotated sorted array
   - Binary search on answer (e.g., Painter’s Partition)
-- Others
-  - Prefix sums
+- Practice
   - Find kth smallest element in array
   - Implement Kadane's algorithm
 
@@ -61,7 +61,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - At beginning, end, or at a specific position
 - Reverse (iterative & recursive)
 - Detect cycle (Floyd’s Algorithm)
-- Others
+- Practice
   - Merge two sorted lists
   - Find middle of the list
   - Remove N-th node from end
@@ -73,7 +73,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 - **Understand concepts** (no need to implement):
   - push/pop
   - enqueue/dequeue
-- Others
+- Practice
   - Valid parentheses
   - Next greater element
   - Monotonic stack / Min stack
@@ -86,7 +86,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 - **Understand concepts** (no need to implement):
   - Hash function basics
   - Collision handling
-- Others
+- Practice
   - Count frequency of elements
   - Subarray with given sum
   - Find duplicates / first unique
@@ -112,7 +112,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 - Traversal
   - Inorder, Preorder, Postorder traversal (recursive + iterative)
   - Level order traversal -BFS (Optional)
-- Others
+- Practice
   - Find a node with a given value (especially in BSTs)
   - Height of binary tree
   - Is it a BST?
@@ -125,7 +125,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - Insertion/Deletion (extract-min/max)
   - Building a Heap
 - Min/Max Heap (Optional)
-- Others
+- Practice
   - K largest/smallest elements
   - Sort nearly sorted array
 
