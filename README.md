@@ -113,7 +113,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 ---
 
-## 🎯 Practice Questions After Tier 1-3
+## 🎯 Practice Questions After Tier 2 or 3
 **[LeetCode 75](https://leetcode.com/studyplan/leetcode-75/)**.
 **[LeetCode 150](https://leetcode.com/studyplan/top-interview-150/)**.
 #### LeetCode 75 & 150 Easy to Medium Questions
@@ -127,11 +127,9 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 This tier covers:
 
-- All data structures and algorithms you only *understood* before but didn’t code.
-- Advanced concepts and subtopics needed to crack top-tier companies.
-- Filling gaps left in previous tiers for a complete mastery.
-
----
+> All data structures and algorithms you only *understood* before but didn’t code.
+> Advanced concepts and subtopics needed to crack top-tier companies.
+> Filling gaps left in previous tiers for a complete mastery.
 
 ### 🔹 12. Skipped Data Structures from Previous Tiers
 
