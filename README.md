@@ -7,6 +7,16 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 ---
 
+## 🧠 Time & Space Complexity Primer
+### Before jumping into Tier 1, understand the Big-O complexities of key operations. Most interviews expect you to:
+- Know the worst-case time complexity of standard algorithms
+- Choose optimal solutions (avoid O(n²) when O(n log n) is possible)
+- Understand space-time tradeoffs (e.g., using extra space for faster results)
+
+**[Big-O Time Complexity Cheat Sheet]()**.
+
+---
+
 ## ✅ Priority-Based Topic Breakdown
 
 ### 🔥 Tier 1: Must-Do (50-60% Weightage)
