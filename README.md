@@ -1,6 +1,9 @@
 # 🚀 15-30 Days DSA Roadmap to Crack ₹10–15 LPA Offers
 
-If you’re short on time but aiming for solid product-based or top startup roles, this roadmap helps you focus on the **most important DSA topics** that give maximum ROI in interviews.
+### (Core Topics for Quick Mastery + Optional Advanced Concepts for Long-Term Dream Companies Preparation)
+
+This roadmap helps you crack ₹10–15 LPA roles efficiently in 15-30 days by focusing on high-impact core DSA topics.
+For those aiming higher and with more time, Tier 4 covers advanced data structures and algorithms for cracking top-tier dream companies — which may take 3-4 months to master.
 
 ---
 
