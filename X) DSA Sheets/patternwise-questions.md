@@ -149,9 +149,30 @@
 |  22 | Graph BFS - Topological Sort (Kahn's Algorithm)    | [2115](https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/) | Find All Possible Recipes from Given Supplies |   Medium   |
 |  22 | Graph BFS - Topological Sort (Kahn's Algorithm)    |         [2392](https://leetcode.com/problems/build-a-matrix-with-conditions/)        | Build a Matrix With Conditions                |    Hard    |
 |  23 | Graph - Deep Copy / Cloning                        |                   [133](https://leetcode.com/problems/clone-graph/)                  | Clone Graph                                   |   Medium   |
-|  24 | Graph - Shortest Path (Dijkstra's Algorithm)       |               [743](https://leetcode.com/problems/network-delay-time/)               | Network Delay Time                            |   Medium   |
-|  24 | Graph - Shortest Path (Dijkstra's Algorithm)       |              [778](https://leetcode.com/problems/swim-in-rising-water/)              | Swim in Rising Water                          |    Hard    |
-|  24 | Graph - Shortest Path (Dijkstra's Algorithm)       |         [1514](https://leetcode.com/problems/path-with-maximum-probability/)         | Path with Maximum Probability                 |   Medium   |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |                   [743](https://leetcode.com/problems/network-delay-time/)                  | Network Delay Time                                    |   Medium   |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |                  [778](https://leetcode.com/problems/swim-in-rising-water/)                 | Swim in Rising Water                                  |    Hard    |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |             [1514](https://leetcode.com/problems/path-with-maximum-probability/)            | Path with Maximum Probability                         |   Medium   |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |               [1631](https://leetcode.com/problems/path-with-minimum-effort/)               | Path With Minimum Effort                              |   Medium   |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |        [1976](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/)       | Number of Ways to Arrive at Destination               |   Medium   |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |       [2045](https://leetcode.com/problems/second-minimum-time-to-reach-destination/)       | Second Minimum Time to Reach Destination              |    Hard    |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |   [2203](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths/)  | Minimum Weighted Subgraph With the Required Paths     |    Hard    |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |       [2290](https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/)       | Minimum Obstacle Removal to Reach Corner              |    Hard    |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |        [2577](https://leetcode.com/problems/minimum-time-to-visit-a-cell-in-a-grid/)        | Minimum Time to Visit a Cell In a Grid                |    Hard    |
+|  24 | Graph - Shortest Path (Dijkstra's Algorithm)         |            [2812](https://leetcode.com/problems/find-the-safest-path-in-a-grid/)            | Find the Safest Path in a Grid                        |   Medium   |
+|  25 | Graph - Shortest Path (Bellman-Ford / BFS + K Stops) |            [787](https://leetcode.com/problems/cheapest-flights-within-k-stops/)            | Cheapest Flights Within K Stops                       |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                   [200](https://leetcode.com/problems/number-of-islands/)                   | Number of Islands                                     |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                    [261](https://leetcode.com/problems/graph-valid-tree/)                   | Graph Valid Tree                                      |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                  [305](https://leetcode.com/problems/number-of-islands-ii/)                 | Number of Islands II                                  |    Hard    |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        | [323](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | Number of Connected Components in an Undirected Graph |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                  [547](https://leetcode.com/problems/number-of-provinces/)                  | Number of Provinces                                   |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                  [684](https://leetcode.com/problems/redundant-connection/)                 | Redundant Connection                                  |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                     [721](https://leetcode.com/problems/accounts-merge/)                    | Accounts Merge                                        |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                 [737](https://leetcode.com/problems/sentence-similarity-ii/)                | Sentence Similarity II                                |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |      [947](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/)      | Most Stones Removed with Same Row or Column           |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |        [952](https://leetcode.com/problems/largest-component-size-by-common-factor/)        | Largest Component Size by Common Factor               |    Hard    |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |                 [959](https://leetcode.com/problems/regions-cut-by-slashes/)                | Regions Cut By Slashes                                |   Medium   |
+|  26 | Graph - Union-Find (Disjoint Set Union - DSU)        |   [1101](https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends/)   | The Earliest Moment When Everyone Become Friends      |   Medium   |
+
 
 ---
 
