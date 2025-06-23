@@ -213,18 +213,15 @@ This tier covers:
 - Prepares you for **high-difficulty interviews and system design discussions**.  
 
 **Pro Tip:**  
-- Implement these data structures and algorithms in code (preferably in your interview language).  
-- Practice dry-running your implementations and analyzing time/space complexity.  
-- Combine implementation practice with solving real problems on LeetCode or similar platforms.
 
----
 
 ### 🧠 Final Tips
+- Focus on patterns, not just isolated problems.
+- Practice LeetCode Easy/Medium problems per category.
+- Prioritize Tier 1 & Tier 2 for ₹10–15 LPA roles
+- Tier 3 & 4 for top companies.
 
-- Focus on **patterns**, not just individual problems.
-- Practice problems from **LeetCode (Easy/Medium)** in each category.
-- Skip implementation-heavy topics like AVL, Segment Trees, etc.
-- Keep your code clean & dry-run your logic in interviews.
+
 
 ---
 
