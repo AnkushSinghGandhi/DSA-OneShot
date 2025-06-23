@@ -13,6 +13,15 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 > **These are asked in almost every interview** – master them first.
 
+### 🔹 0. Number-Based Problems, String Manipulation, Loops & Basic Data Structures — 10%
+- Number-based problems (palindrome, prime check, factorial, Armstrong, etc.)  
+- String manipulation (reverse, palindrome checks, permutations, compressions, anagrams, etc.)  
+- Loops, logic, and recursion basics (Fibonacci, pair sums, flattening lists, balanced parentheses)  
+- Basic data structures usage (lists, sets, dictionaries, sorting without built-ins, counting elements)  
+- Handling exceptions and edge cases  
+- Bonus practice challenges (FizzBuzz, grouping characters, advanced string groupings)
+
+
 #### 🔹 1. Arrays & Strings - 15%
 - Traversals & updates
 - Sorting (Quick Sort, Merge Sort)
