@@ -26,7 +26,7 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 #### 🔹 0. Number-Based Problems, String Manipulation, Loops & Basic Data Structures — 10%
 - Number-based problems (palindrome, prime check, factorial, Armstrong, etc.)  
-- String manipulation (reverse, palindrome checks, permutations, compressions, anagrams, etc.)  
+- String manipulation (reverse, palindrome checks, permutations, compressions, anagrams, substring etc.)  
 - Loops, logic, and recursion basics (Fibonacci, pair sums, flattening lists, balanced parentheses)  
 - Basic data structures usage (lists, sets, dictionaries, sorting without built-ins, counting elements)  
 - Handling exceptions and edge cases  
@@ -35,53 +35,64 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 
 #### 🔹 1. Arrays & Strings - 15%
 - Traversals & updates
-- Sorting (Quick Sort, Merge Sort)
-- Prefix sums
-- Sliding Window (min/max in window)
+- Sorting
+  - Quick Sort (O(nlog n))
+  - Merge Sort (O(nlog n))
+- Sliding Window
+  - Subarray problems
+  - finding max/min in a window
 - Two-pointer technique
-- String Operations
-  - Substring
-  - Palindromes
-  - Anagrams
+  - In-place operations (e.g., removing duplicates)
 - Binary search and its variations:
-  - Classic binary search
+  - Classic binary search (O(log n))
   - First/Last occurrence
   - Search in rotated sorted array
   - Binary search on answer (e.g., Painter’s Partition)
-- In-place operations (no extra space)
+- Others
+  - Prefix sums
+
 
 #### 🔹 2. Linked Lists (Singly Only) - 10%
-- Insert/Delete at head/mid/end
+- Traversal:
+  - Iterate through the list, understand the node structure
+- Insertion/Deletion
+  - At beginning, end, or at a specific position
 - Reverse (iterative & recursive)
 - Detect cycle (Floyd’s Algorithm)
-- Merge two sorted lists
-- Find middle of the list
-- Remove N-th node from end
-- Understand only Doubly and Circular
+- Others
+  - Merge two sorted lists
+  - Find middle of the list
+  - Remove N-th node from end
+  - Understand only Doubly and Circular
 
 #### 🔹 3. Stacks & Queues - 10%
-- Basic operations (push/pop, enqueue/dequeue)
-- Valid parentheses
-- Next greater element
-- Monotonic stack / Min stack
-- (Optional) Implement queue using stacks
+- **Understand concepts** (no need to implement):
+  - push/pop
+  - enqueue/dequeue
+- Others
+  - Valid parentheses
+  - Next greater element
+  - Monotonic stack / Min stack
 
 #### 🔹 4. Hashing (HashMap / Set / Dict) - 10%
-- Count frequency of elements
-- Subarray with given sum
-- Find duplicates / first unique
-- Group anagrams
-- Longest substring with no repeats
 - **Understand concepts** (no need to implement):
   - Hash function basics
   - Collision handling
+- Others
+  - Count frequency of elements
+  - Subarray with given sum
+  - Find duplicates / first unique
+  - Group anagrams
+  - Longest substring with no repeats
+
  
 #### 🔹 5. Recursion & Backtracking — 5%
-- Factorial, Fibonacci (recursion base)
-- Subsets, combinations, permutations
+- Factorial, Fibonacci 
+- Subsets, combinations
 - Backtracking:
   - N-Queens (basic)
   - Sudoku Solver (optional)
+  - Permutations
 
 ---
 
@@ -90,21 +101,28 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 > Do these next. They're common but not always core.
 
 #### 🔹 6. Trees (Binary Trees & BST only) - 15%
-- Inorder, Preorder, Postorder traversal (recursive + iterative)
-- Level order traversal (BFS)
-- Height of binary tree
-- Is it a BST?
-- Lowest Common Ancestor (basic version)
+- Traversal
+  - Inorder, Preorder, Postorder traversal (recursive + iterative)
+  - Level order traversal -BFS (Optional)
+- Others
+  - Find a node with a given value (especially in BSTs)
+  - Height of binary tree
+  - Is it a BST?
+  - Lowest Common Ancestor (basic version)
 
 #### 🔹 7. Heaps (Priority Queue) - 5%
-- K largest/smallest elements
-- Sort nearly sorted array
-- **Understand**:
-  - Min-heap / Max-heap logic
-  - Heapify, insert/delete (no need to code)
+- **Understand concepts** (no need to implement):
+  - Insertion/Deletion (extract-min/max)
+  - Building a Heap
+- Min/Max Heap (Optional)
+- Others
+  - K largest/smallest elements
+  - Sort nearly sorted array
+
 
 #### 🔹 8. Greedy Algorithms - 5%
 - Activity selection / Interval scheduling
+- Kruskal's algorithm for minimum spanning trees.
 - Fractional knapsack
 - Minimum number of platforms needed
 
@@ -115,10 +133,14 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 > Only if you have time or the company asks for these topics.
 
 #### 🔹 9. Graphs - 5-8%
-- DFS and BFS traversal
-- Detect cycle (undirected)
+- Traversal
+  - Breadth-First Search (BFS)
+  - Depth-First Search (DFS)
+- Detect cycle 
+  - DFS
+- Shortest Path
+  - Dijkstra’s Algorithm (basic understanding)
 - Topological sort
-- Dijkstra’s Algorithm (basic understanding)
 
 #### 🔹 10. Dynamic Programming - 15%
 - Fibonacci with memoization
@@ -126,10 +148,13 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 - Longest Common Subsequence
 - (Optional) Tabulation vs Memoization basics
 
-#### 🔹 11. Tries — 2–3% (Optional)
-- Insert/search word
+#### 🔹 11. Tries — 2–3% (Optional
+- Implement Trie from scratch
+- Insertion/searching
+  - For words/prefixes
 - Longest prefix matching
 - Word dictionary problems
+- Using a trie for word suggestions
 
 ---
 
