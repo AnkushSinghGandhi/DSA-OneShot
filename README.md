@@ -175,6 +175,7 @@ This tier covers:
 > All data structures and algorithms you only *understood* before but didn’t code.
 > Advanced concepts and subtopics needed to crack top-tier companies.
 > Filling gaps left in previous tiers for a complete mastery.
+> Understand & Practice everything that you skipped in previous tiers 
 
 #### 🔹 12. Skipped Data Structures from Previous Tiers
 
@@ -240,13 +241,6 @@ This tier covers:
 - After mastering Tier 4, solve these problems to prepare for dream companies like Google, Amazon, Facebook, Microsoft, etc.
 - These include harder and more advanced problems, combining multiple concepts.
 - Great for building problem-solving stamina and mastering edge cases.
-
-### 🔑 Why Tier 4?
-
-- Many data structures are **understood but not coded** by candidates — coding them deeply embeds your knowledge.  
-- Top companies expect **both conceptual understanding and coding skills** on these advanced topics.  
-- Covers any **missed essential subtopics** from earlier tiers that have high impact.  
-- Prepares you for **high-difficulty interviews and system design discussions**.  
 
 **Pro Tip:**  
 
