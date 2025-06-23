@@ -50,6 +50,8 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - Binary search on answer (e.g., Painter’s Partition)
 - Others
   - Prefix sums
+  - Find kth smallest element in array
+  - Implement Kadane's algorithm
 
 
 #### 🔹 2. Linked Lists (Singly Only) - 10%
@@ -63,6 +65,8 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - Merge two sorted lists
   - Find middle of the list
   - Remove N-th node from end
+  - Implement a stack using a linked list
+  - Find the intersection point of two linked lists
   - Understand only Doubly and Circular
 
 #### 🔹 3. Stacks & Queues - 10%
@@ -73,6 +77,10 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - Valid parentheses
   - Next greater element
   - Monotonic stack / Min stack
+  - Implement a stack using arrays (#16)
+  - Design a stack that retrieves minimum efficiently
+  - Implement a circular queue (#18)
+  - Build a queue using stacks (#19)
 
 #### 🔹 4. Hashing (HashMap / Set / Dict) - 10%
 - **Understand concepts** (no need to implement):
@@ -109,6 +117,8 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - Height of binary tree
   - Is it a BST?
   - Lowest Common Ancestor (basic version)
+  - Compute diameter of a binary tree
+  - Convert a binary tree to its mirror 
 
 #### 🔹 7. Heaps (Priority Queue) - 5%
 - **Understand concepts** (no need to implement):
@@ -141,6 +151,8 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 - Shortest Path
   - Dijkstra’s Algorithm (basic understanding)
 - Topological sort
+- Bipartite check
+- Connected components
 
 #### 🔹 10. Dynamic Programming - 15%
 - Fibonacci with memoization
