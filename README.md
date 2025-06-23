@@ -139,8 +139,6 @@ This tier covers:
 - Disjoint Set Union (Union-Find) with path compression and union by rank  
 - HashMap / HashSet from scratch (basic hash function and collision handling)  
 
----
-
 ### 🔹 13. Advanced Trees & Balanced Trees  
 - AVL Trees with all rotations (left, right, left-right, right-left)  
 - Basic Red-Black Tree insertions and properties (understand deletions)  
