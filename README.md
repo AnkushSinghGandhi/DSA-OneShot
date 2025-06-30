@@ -43,7 +43,14 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
   - finding max/min in a window
 - Two-pointer technique
   - In-place operations (e.g., removing duplicates)
-- Prefix sums
+- Prefix/Suffix Computations
+  - Prefix Sum/Count
+  - Longest prefix matching
+  - Counting certain chars quickly in substring queries
+- Frequency Counting
+  - Anagram problems
+  - First non-repeating character
+  - Checking if two strings are permutations
 - Binary search and its variations:
   - Classic binary search (O(log n))
   - First/Last occurrence
