@@ -20,9 +20,9 @@
 
    * (Check if s1’s permutation is in s2) — [LeetCode 567](https://leetcode.com/problems/permutation-in-string/)
 
-6. **Sliding Window Maximum**
+6. Maximum Number of Vowels in a Substring of Given Length
 
-   * (Use deque for max) — [LeetCode 239](https://leetcode.com/problems/sliding-window-maximum/)
+* [LeetCode 1456](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/)
 
 7. **Count Number of Nice Subarrays**
 
@@ -40,7 +40,5 @@
 
 * (At most K 0s can be flipped) — [LeetCode 1004](https://leetcode.com/problems/max-consecutive-ones-iii/)
 
-11. Maximum Number of Vowels in a Substring of Given Length
 
-* [LeetCode 1456](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/)
 
