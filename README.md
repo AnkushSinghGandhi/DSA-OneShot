@@ -178,6 +178,8 @@ For those aiming higher and with more time, Tier 4 covers advanced data structur
 ---
 
 ### 🎯 Practice Questions After Tier 2 or 3
+**[GFG top 50 String Qs](https://www.geeksforgeeks.org/dsa/top-50-string-coding-problems-for-interviews/)**.
+**[Python Coding questions]()**.
 **[LeetCode 75](https://leetcode.com/studyplan/leetcode-75/)**.
 **[LeetCode 150](https://leetcode.com/studyplan/top-interview-150/)**.
 #### LeetCode 75 & 150 Easy to Medium Questions
