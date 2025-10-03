@@ -29,6 +29,7 @@
 23. Find min & max without predefined functions
 24. Find max & min value from a list without predefined methods
 25. Read multiple values from single input (`Nums = list(map(int, input().split()))`)
+26. Find largest number in a list using for loop
 
 ---
 
