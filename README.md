@@ -1,5 +1,5 @@
 # 🚀 15-30 Days DSA Roadmap to Crack ₹10–15 LPA Offers 
-**[Complete PDF Downloads]()**.
+**[Tips, Strategies, and Patterns to Solve and Identify DSA Problems](https://dev.to/ankushsinghgandhi/tips-strategies-and-patterns-to-solve-and-identify-dsa-problems-4jja)**.
 
 ### (Core Topics for Quick Mastery + Optional Advanced Concepts for Long-Term Dream Companies Preparation)
 
