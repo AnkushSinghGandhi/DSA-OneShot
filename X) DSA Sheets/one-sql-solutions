@@ -1,0 +1,740 @@
+MySQL Sequential Practice Sheet (chained, run top → bottom)
+
+> Instructions: run queries in order. Where a step depends on previous data, that dependency is explicit.
+
+
+
+
+---
+
+1 — Setup: database & base tables
+
+1. Create database office and use it.
+
+
+
+CREATE DATABASE IF NOT EXISTS office;
+USE office;
+
+2. Create department table (so department-related queries later have context).
+
+
+
+CREATE TABLE department (
+  dept_id INT AUTO_INCREMENT PRIMARY KEY,
+  dept_name VARCHAR(100) NOT NULL
+);
+INSERT INTO department (dept_name) VALUES ('HR'),('Sales'),('Engineering'),('Finance');
+
+3. Create employee table with common fields (id, name, salary, manager_id, dept_id, hire_date, job_role, is_deleted).
+
+
+
+CREATE TABLE employee (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  salary DECIMAL(12,2),
+  manager_id INT NULL,
+  dept_id INT,
+  job_role VARCHAR(100),
+  hire_date DATE,
+  is_deleted TINYINT(1) DEFAULT 0,
+  UNIQUE KEY uk_emp_name (name),
+  FOREIGN KEY (dept_id) REFERENCES department(dept_id),
+  FOREIGN KEY (manager_id) REFERENCES employee(id)
+);
+
+4. Insert sample employee data (some duplicates/nulls included).
+
+
+
+INSERT INTO employee (name,salary,manager_id,dept_id,job_role,hire_date)
+VALUES
+('Aman',50000,NULL,1,'HR Executive','2024-01-10'),
+('Arun',70000,1,2,'Sales Exec','2023-11-05'),
+('Anita',90000,1,3,'Engineer','2022-08-20'),
+('Bob',60000,2,2,'Sales Exec','2025-02-15'),
+('Charlie',45000,3,3,'Engineer','2021-06-12'),
+('David',120000,NULL,4,'CFO','2020-03-01'),
+('Eve',70000,6,4,'Accountant','2022-12-01'),
+('Frank',70000,6,4,'Accountant','2022-12-01'), -- duplicate row
+('Gopal',30000,3,3,'Intern',NULL),
+('Hira',85000,3,3,'Engineer','2023-05-18');
+
+
+---
+
+2 — Table copying / cloning & sample variants
+
+5. Create employee_copy with same structure (no data).
+
+
+
+CREATE TABLE employee_copy LIKE employee;
+
+6. Create employee_copy2 with same structure and copy data.
+
+
+
+CREATE TABLE employee_copy2 AS SELECT * FROM employee;
+
+7. Create a small audit / salary_change table (used later for triggers).
+
+
+
+CREATE TABLE salary_audit (
+  audit_id INT AUTO_INCREMENT PRIMARY KEY,
+  emp_id INT,
+  old_salary DECIMAL(12,2),
+  new_salary DECIMAL(12,2),
+  changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+---
+
+3 — Basic SELECT / filtering / patterns
+
+8. Select employees whose name begins with 'A'.
+
+
+
+SELECT * FROM employee WHERE name LIKE 'A%';
+
+9. Select employees whose name contains substring (e.g., 'an').
+
+
+
+SELECT * FROM employee WHERE name LIKE '%an%';
+
+10. Select rows with NULL values (example: hire_date).
+
+
+
+SELECT * FROM employee WHERE hire_date IS NULL;
+
+11. Replace NULL display using COALESCE.
+
+
+
+SELECT id, name, COALESCE(hire_date, '2000-01-01') AS hire_date_display FROM employee;
+
+
+---
+
+4 — Sorting, pagination, and position-based fetches
+
+12. Fetch first 10 employees (ordered by id).
+
+
+
+SELECT * FROM employee ORDER BY id LIMIT 10;
+
+13. Fetch last 5 employees using ORDER BY + subquery.
+
+
+
+SELECT * FROM (
+  SELECT * FROM employee ORDER BY id DESC LIMIT 5
+) t ORDER BY id;
+
+14. Fetch the 8th employee (by id ordering).
+
+
+
+SELECT * FROM employee ORDER BY id LIMIT 1 OFFSET 7;
+
+15. Pagination: page n with page size m (example page 2, size 5).
+
+
+
+SET @page = 2; SET @size = 5;
+SELECT * FROM employee ORDER BY id LIMIT @size OFFSET (@page-1)*@size;
+
+16. Fetch alternate (every other) record (by row number emulation).
+
+
+
+SELECT * FROM (
+  SELECT e.*, ROW_NUMBER() OVER (ORDER BY id) rn FROM employee e
+) t WHERE MOD(rn,2)=1;
+
+(If MySQL version < 8, use user variables to emulate ROW_NUMBER.)
+
+
+---
+
+5 — Aggregation & grouping (basic)
+
+17. Max / Min / Avg / Sum salary per department.
+
+
+
+SELECT d.dept_name, COUNT(e.id) cnt, AVG(salary) avg_sal, MIN(salary) min_sal, MAX(salary) max_sal, SUM(salary) sum_sal
+FROM department d
+LEFT JOIN employee e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name;
+
+18. Department-wise count of employees.
+
+
+
+SELECT dept_id, COUNT(*) cnt FROM employee GROUP BY dept_id;
+
+19. Departments where headcount < X (HAVING).
+
+
+
+SELECT dept_id, COUNT(*) cnt FROM employee GROUP BY dept_id HAVING cnt < 3;
+
+20. Percentage contribution of each employee to dept payroll.
+
+
+
+SELECT e.id, e.name, e.salary,
+  ROUND(e.salary / SUM(e.salary) OVER (PARTITION BY e.dept_id) * 100,2) pct_of_dept
+FROM employee e;
+
+
+---
+
+6 — Ranking & window functions (requires MySQL 8+)
+
+21. Top 3 salaries per department (ROW_NUMBER / RANK / DENSE_RANK).
+
+
+
+SELECT * FROM (
+  SELECT e.*, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) rn
+  FROM employee e
+) t WHERE rn <= 3;
+
+22. Running total (cumulative sum) of salary ordered by hire_date.
+
+
+
+SELECT id, name, hire_date, salary,
+  SUM(salary) OVER (ORDER BY hire_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) running_total
+FROM employee;
+
+23. LAG()/LEAD(): previous and next salary per employee by hire_date.
+
+
+
+SELECT id, name, salary,
+  LAG(salary) OVER (ORDER BY hire_date) prev_salary,
+  LEAD(salary) OVER (ORDER BY hire_date) next_salary
+FROM employee;
+
+
+---
+
+7 — Second / third highest salary (several ways)
+
+24. Second highest salary using subquery.
+
+
+
+SELECT MAX(salary) FROM employee WHERE salary < (SELECT MAX(salary) FROM employee);
+
+25. Third highest salary using subquery.
+
+
+
+SELECT MAX(salary) FROM employee WHERE salary < (
+  SELECT MAX(salary) FROM employee WHERE salary < (SELECT MAX(salary) FROM employee)
+);
+
+26. Second & third highest using LIMIT.
+
+
+
+SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 2;
+-- then pick second row client-side, or:
+SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1 OFFSET 1; -- second
+SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1 OFFSET 2; -- third
+
+27. Using RANK()/DENSE_RANK().
+
+
+
+SELECT salary FROM (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) rnk FROM employee
+) t WHERE rnk IN (2,3);
+
+
+---
+
+8 — Joins (progress from simple to complex)
+
+28. INNER JOIN: employee with department name.
+
+
+
+SELECT e.*, d.dept_name FROM employee e JOIN department d ON e.dept_id = d.dept_id;
+
+29. LEFT JOIN: find employees without a department (dept_id NULL).
+
+
+
+SELECT e.*, d.dept_name FROM employee e LEFT JOIN department d ON e.dept_id = d.dept_id WHERE d.dept_id IS NULL;
+
+30. RIGHT JOIN (equivalent context).
+
+
+
+SELECT e.*, d.dept_name FROM employee e RIGHT JOIN department d ON e.dept_id = d.dept_id;
+
+31. FULL OUTER JOIN equivalent (UNION of left/right).
+
+
+
+-- MySQL: simulate full outer join
+SELECT e.*, d.dept_name FROM employee e LEFT JOIN department d ON e.dept_id = d.dept_id
+UNION
+SELECT e.*, d.dept_name FROM employee e RIGHT JOIN department d ON e.dept_id = d.dept_id;
+
+32. CROSS JOIN: Cartesian product (small demo).
+
+
+
+SELECT e.name, d.dept_name FROM employee e CROSS JOIN department d LIMIT 10;
+
+33. SELF JOIN: employee with their manager name.
+
+
+
+SELECT e.id, e.name, m.name AS manager_name
+FROM employee e LEFT JOIN employee m ON e.manager_id = m.id;
+
+34. INNER JOIN across multiple tables (dept + manager + salary).
+
+
+
+SELECT e.name, d.dept_name, m.name manager, e.salary
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+LEFT JOIN employee m ON e.manager_id = m.id;
+
+
+---
+
+9 — Set operations & comparisons
+
+35. Fetch common records between employee and employee_copy2 (intersection).
+
+
+
+SELECT * FROM employee INTERSECT /* MySQL doesn't support INTERSECT */ ;
+-- MySQL version:
+SELECT e.* FROM employee e INNER JOIN employee_copy2 c ON e.name=c.name AND e.salary=c.salary;
+
+36. Rows in copy2 not in employee (difference).
+
+
+
+SELECT c.* FROM employee_copy2 c LEFT JOIN employee e ON e.name=c.name AND e.salary=c.salary WHERE e.id IS NULL;
+
+37. UNION vs UNION ALL demo (duplicates kept or removed).
+
+
+
+SELECT name FROM employee
+UNION
+SELECT name FROM employee_copy2;
+
+SELECT name FROM employee
+UNION ALL
+SELECT name FROM employee_copy2;
+
+
+---
+
+10 — Duplicate detection & removal
+
+38. Find duplicate rows in employee (by name & salary).
+
+
+
+SELECT name, salary, COUNT(*) cnt FROM employee GROUP BY name,salary HAVING cnt > 1;
+
+39. Remove duplicate rows but keep one copy (example using temp table).
+
+
+
+CREATE TABLE tmp_employee AS SELECT * FROM employee GROUP BY name,salary;
+TRUNCATE TABLE employee;
+INSERT INTO employee SELECT * FROM tmp_employee;
+DROP TABLE tmp_employee;
+
+(Alternative: use DELETE with self-join and row id comparisons.)
+
+40. Detect near-duplicates (case-insensitive).
+
+
+
+SELECT LOWER(name) lname, COUNT(*) cnt FROM employee GROUP BY lname HAVING cnt > 1;
+
+
+---
+
+11 — Data cleanup & transforms
+
+41. Normalize name casing to Title Case / UPPER / LOWER (simple example to LOWER).
+
+
+
+UPDATE employee SET name = UPPER(name);
+
+42. Find gaps in ID sequence (missing employee IDs).
+
+
+
+SELECT t1.id+1 AS start_missing
+FROM employee t1
+LEFT JOIN employee t2 ON t1.id + 1 = t2.id
+WHERE t2.id IS NULL
+ORDER BY t1.id;
+
+43. Soft delete and restore pattern.
+
+
+
+UPDATE employee SET is_deleted = 1 WHERE id = 3; -- soft delete
+UPDATE employee SET is_deleted = 0 WHERE id = 3; -- restore
+
+
+---
+
+12 — DML: insert/update/delete (advanced)
+
+44. UPSERT using INSERT ... ON DUPLICATE KEY UPDATE.
+
+
+
+INSERT INTO employee (id,name,salary,dept_id) VALUES (2,'Arun',75000,2)
+ON DUPLICATE KEY UPDATE salary=VALUES(salary);
+
+45. Update salaries by X% for a department (e.g., +10% for dept_id=3).
+
+
+
+UPDATE employee SET salary = salary * 1.10 WHERE dept_id = 3;
+
+46. Delete rows where employee id > 6.
+
+
+
+DELETE FROM employee WHERE id > 6;
+
+47. Delete all rows but keep table structure.
+
+
+
+TRUNCATE TABLE employee;
+
+48. Drop / delete the table structure completely.
+
+
+
+DROP TABLE IF EXISTS employee;
+
+(If you follow the sheet, don't run this until the end — it's destructive.)
+
+
+---
+
+13 — Advanced JOIN usage examples (team analytics)
+
+49. Find managers and their count of direct reports.
+
+
+
+SELECT m.id,m.name,COUNT(e.id) reports
+FROM employee m LEFT JOIN employee e ON m.id = e.manager_id
+GROUP BY m.id, m.name;
+
+50. Top managers by sum of team salaries.
+
+
+
+SELECT m.id, m.name, SUM(e.salary) team_salary
+FROM employee m JOIN employee e ON m.id = e.manager_id
+GROUP BY m.id, m.name ORDER BY team_salary DESC;
+
+51. Employees who do NOT have a manager.
+
+
+
+SELECT * FROM employee WHERE manager_id IS NULL;
+
+
+---
+
+14 — Window functions applied to business questions
+
+52. Rank employees overall by salary (RANK/DENSE_RANK).
+
+
+
+SELECT id,name,salary, RANK() OVER (ORDER BY salary DESC) rnk FROM employee;
+
+53. Find salary change compared to previous hire_date using LAG.
+
+
+
+SELECT id,name,salary, salary - LAG(salary) OVER (ORDER BY hire_date) salary_diff FROM employee;
+
+
+---
+
+15 — Views, procedures, triggers
+
+54. Create a view: employees with department name and manager name.
+
+
+
+CREATE VIEW v_employee_full AS
+SELECT e.id,e.name,e.salary,d.dept_name, m.name manager_name
+FROM employee e
+LEFT JOIN department d ON e.dept_id = d.dept_id
+LEFT JOIN employee m ON e.manager_id = m.id;
+
+55. Stored procedure: get employees for a department.
+
+
+
+DELIMITER //
+CREATE PROCEDURE GetEmployeesByDept(IN p_dept INT)
+BEGIN
+  SELECT * FROM employee WHERE dept_id = p_dept;
+END //
+DELIMITER ;
+-- CALL GetEmployeesByDept(3);
+
+56. Trigger: log salary changes to salary_audit.
+
+
+
+DELIMITER //
+CREATE TRIGGER tr_salary_change BEFORE UPDATE ON employee
+FOR EACH ROW
+BEGIN
+  IF NEW.salary <> OLD.salary THEN
+    INSERT INTO salary_audit (emp_id, old_salary, new_salary) VALUES (OLD.id, OLD.salary, NEW.salary);
+  END IF;
+END;
+//
+DELIMITER ;
+
+
+---
+
+16 — Indexes, EXPLAIN, and performance basics
+
+57. Create a non-clustered index on job_role.
+
+
+
+CREATE INDEX idx_job_role ON employee(job_role);
+
+58. Use EXPLAIN to analyze a query.
+
+
+
+EXPLAIN SELECT * FROM employee WHERE job_role='Engineer';
+
+59. Drop index.
+
+
+
+DROP INDEX idx_job_role ON employee;
+
+60. Partitioning intro (range partition example).
+
+
+
+-- simple example; may require appropriate engine
+ALTER TABLE employee PARTITION BY RANGE (dept_id) (
+  PARTITION p0 VALUES LESS THAN (2),
+  PARTITION p1 VALUES LESS THAN (4),
+  PARTITION p2 VALUES LESS THAN MAXVALUE
+);
+
+
+---
+
+17 — JSON, GROUP_CONCAT, Pivoting
+
+61. Add JSON column and insert JSON data.
+
+
+
+ALTER TABLE employee ADD COLUMN meta JSON;
+UPDATE employee SET meta = JSON_OBJECT('skills', JSON_ARRAY('sql','python')) WHERE id=1;
+SELECT JSON_EXTRACT(meta, '$.skills[0]') FROM employee WHERE id=1;
+
+62. GROUP_CONCAT employees per department.
+
+
+
+SELECT dept_id, GROUP_CONCAT(name ORDER BY name SEPARATOR ', ') employees FROM employee GROUP BY dept_id;
+
+63. Manual pivot: department-wise counts as columns.
+
+
+
+SELECT
+  SUM(CASE WHEN dept_id=1 THEN 1 ELSE 0 END) hr_count,
+  SUM(CASE WHEN dept_id=2 THEN 1 ELSE 0 END) sales_count,
+  SUM(CASE WHEN dept_id=3 THEN 1 ELSE 0 END) eng_count
+FROM employee;
+
+
+---
+
+18 — Transactions & isolation
+
+64. Demonstrate a transaction with rollback.
+
+
+
+START TRANSACTION;
+UPDATE employee SET salary = salary + 1000 WHERE id = 1;
+-- ROLLBACK; -- or COMMIT;
+ROLLBACK;
+
+65. Show/Set isolation level (session).
+
+
+
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+SELECT @@tx_isolation, @@transaction_isolation;
+
+
+---
+
+19 — Security, export/import, admin utilities
+
+66. GRANT minimal privileges to a demo user.
+
+
+
+CREATE USER 'demo'@'localhost' IDENTIFIED BY 'demo_pass';
+GRANT SELECT ON office.employee TO 'demo'@'localhost';
+
+67. Export table to CSV (server-side).
+
+
+
+SELECT * FROM employee INTO OUTFILE '/tmp/employee.csv'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+68. Load data from CSV.
+
+
+
+LOAD DATA INFILE '/tmp/employee.csv' INTO TABLE employee FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+69. Show current connections / processlist.
+
+
+
+SHOW PROCESSLIST;
+
+
+---
+
+20 — Edge cases, admin, and cleanup exercises
+
+70. Generate sample data programmatically (cross join trick).
+
+
+
+INSERT INTO employee (name,salary,dept_id,job_role,hire_date)
+SELECT CONCAT('Gen_',t1.n,'_',t2.n), 30000 + (t1.n * 1000), ((t2.n%4)+1), 'Temp', CURDATE() - INTERVAL (t1.n+t2.n) DAY
+FROM (SELECT 0 n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4) t1
+CROSS JOIN (SELECT 0 n UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8) t2 LIMIT 20;
+
+71. Find employees with salary greater than department average (correlated subquery).
+
+
+
+SELECT e.* FROM employee e WHERE e.salary > (SELECT AVG(salary) FROM employee WHERE dept_id = e.dept_id);
+
+72. EXISTS vs IN example.
+
+
+
+SELECT * FROM employee e WHERE EXISTS (SELECT 1 FROM employee_copy2 c WHERE c.name = e.name);
+SELECT * FROM employee e WHERE name IN (SELECT name FROM employee_copy2);
+
+73. Soft-delete purge (permanent delete for is_deleted rows).
+
+
+
+DELETE FROM employee WHERE is_deleted = 1;
+
+74. Create tables with composite primary key.
+
+
+
+CREATE TABLE project_assignment (
+  emp_id INT,
+  project_id INT,
+  assigned_on DATE,
+  PRIMARY KEY (emp_id, project_id),
+  FOREIGN KEY (emp_id) REFERENCES employee(id)
+);
+
+75. Create a table with foreign key (already shown earlier for employee.dept_id) — (exercise to add another FK).
+
+
+
+CREATE TABLE project (
+  project_id INT AUTO_INCREMENT PRIMARY KEY,
+  project_name VARCHAR(100)
+);
+ALTER TABLE project_assignment ADD FOREIGN KEY (project_id) REFERENCES project(project_id);
+
+
+---
+
+21 — Final exam style queries & cleanup
+
+76. Find top N (e.g., top 2) highest paid employees per dept using window functions.
+
+
+
+SELECT * FROM (
+  SELECT e.*, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) rn FROM employee e
+) t WHERE rn <= 2;
+
+77. Find employees who joined in last 6 months.
+
+
+
+SELECT * FROM employee WHERE hire_date >= CURDATE() - INTERVAL 6 MONTH;
+
+78. Find employees with salary gaps (salary difference to previous > X).
+
+
+
+SELECT id,name,salary, salary - LAG(salary) OVER (ORDER BY salary) diff FROM employee HAVING diff > 10000;
+
+79. Cleanup: drop temporary objects (views, triggers) created earlier.
+
+
+
+DROP VIEW IF EXISTS v_employee_full;
+DROP TRIGGER IF EXISTS tr_salary_change;
+DROP PROCEDURE IF EXISTS GetEmployeesByDept;
+
+80. Final: drop database (if you want to reset).
+
+
+
+DROP DATABASE IF EXISTS office;
+
+
+---
